@@ -3,7 +3,7 @@ import java.util.Random;
 public class RobotInst {
 
     private static Random random = new Random();
-    private static int N_SAMPLES = 4;
+    private static int N_SAMPLES = random.nextInt(100) + 1;
     
 
 
@@ -23,8 +23,9 @@ public class RobotInst {
             int pos = 0;
             for (int j = 1; j <= sampleSize; j++) {
                 String exp = samplesArr[ ind + j ];
-                while ( exp.contains("SAME") ) {
-                    exp = samplesArr[ ind + Character.getNumericValue( exp.charAt( exp.length() - 1 ) ) ];
+                if ( exp.contains("SAME") ) {
+                    samplesArr[ ind + j ] = samplesArr[ ind + Integer.parseInt( exp.split(" ")[2] ) ];
+                    exp = samplesArr[ ind + j ];
                 }
                 pos += exp.equals("LEFT") ? -1 : 1;
             }
